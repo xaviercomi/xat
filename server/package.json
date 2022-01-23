@@ -1,0 +1,24 @@
+{
+  "name": "chatcord",
+  "version": "1.0.0",
+  "description": "Realtime chat app with rooms",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Brad Traversy",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "moment": "^2.24.0",
+    "mongoose": "^6.1.6",
+    "socket.io": "^2.4.1"
+  },
+  "devDependencies": {
+    "@types/socket.io": "^3.0.2",
+    "nodemon": "^2.0.2"
+  },
+  "keywords": []
+}
