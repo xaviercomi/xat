@@ -1,10 +1,13 @@
 const formatMessage = require('./middlewares/messages');
+
 const {
   userJoin,
   getCurrentUser,
   userLeave,
-  getRoomUsers
+  getRoomUsers,
+  addMessage
 } = require('./middlewares/user');
+
 const io = require('./server')
 
 module.exports = function(io) {
@@ -43,6 +46,7 @@ module.exports = function(io) {
       socket.on('chatMessage', msg => {
         const user = getCurrentUser(socket.id)
         if (user) { 
+          addMessage(user, msg);
           io.to(user.room).emit('message', formatMessage(user.username, msg));
         }
       }); 

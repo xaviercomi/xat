@@ -52,7 +52,15 @@ function getRoomUsers(room) {
   });
 };
 
+// add message to database
+function addMessage(user, msg) {
+  console.log(user + "tres")
+  console.log(msg)
+  User.findByIdAndUpdate({id: user.id}, { $push: {message: msg} });
+}
+
 module.exports = {
+  addMessage,
   userJoin,
   getCurrentUser,
   userLeave,

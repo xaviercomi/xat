@@ -31,16 +31,16 @@ socket.on('message', (message) => {
 if (chatForm) {
     chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
-
+      
     // Get message text
       let msg = e.target.elements.msg.value;
-
+      
       msg = msg.trim();
 
       if (!msg) {
         return false;
       }
-
+      
     // Emit message to server
       socket.emit('chatMessage', msg);
 
