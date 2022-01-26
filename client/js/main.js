@@ -3,12 +3,12 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const leaveRoom = document.getElementById('leave-btn');
-
+console.log(chatForm, chatMessages, roomName, userList, leaveRoom)
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
-
+console.log(username, room)
 const socket = io.connect('http://localhost:3000');
 
 // Join chat room
@@ -27,8 +27,10 @@ socket.on('message', (message) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
+console.log(chatForm)
 // Message submit
 if (chatForm) {
+  console.log("button cliccked")
     chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
