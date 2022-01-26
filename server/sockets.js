@@ -12,14 +12,15 @@ const io = require('./server')
 
 module.exports = function(io) {
 
-  const xatName = 'xipXat';
+  const xatName = 'xipXat ';
 
   // Run when client connects
   io.on('connection', socket => {
 
       socket.on('joinRoom', async({ username, room }) => {
         const user = await userJoin(socket.id, username, room);
-        if (user) {
+
+        //if (user) {
           socket.join(user.room);
 
           // Welcome current user
@@ -32,31 +33,33 @@ module.exports = function(io) {
               'message',
                 formatMessage(xatName, `${user.username} has joined the chat`)
             );
+
+            
           // Send users and room info
           io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: await getRoomUsers(user.room)
           });
-        }
+
+          
+        //}
 
     });
 
       // Listen for chatMessage
       socket.on('chatMessage', async (msg) => {
-        console.log(socket.id)
+        console.log(msg + "en el server")
         const user = await getCurrentUser(socket.id)
-        console.log(user)
-        if (user) { 
-          addMessage(user, msg);
-          io.to(user.room).emit('message', formatMessage(user.username, msg));
-        }
+        addMessage(user, msg);
+        io.to(user.room).emit('message', formatMessage(user.username, msg));  
+        
       }); 
 
       // Runs when client disconnects
       socket.on('disconnect', () => {
         const user = userLeave(socket.id);
 
-        if (user) {
+        //if (user) {
           io.to(user.room).emit(
             'message',
             formatMessage(xatName, `${user.username} has left the chat`)
@@ -66,7 +69,7 @@ module.exports = function(io) {
             room: user.room,
             users: getRoomUsers(user.room)
           });
-        }
+        //}
 
       });
 
