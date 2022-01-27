@@ -17,7 +17,6 @@ async function getCurrentUser(id) {
   try{
     const user = await User.find({ id: id })
     if(user){
-      console.log(user + "DENTRO DE LA FUNCION")
       return user;
     } else {
     return null
@@ -46,8 +45,6 @@ async function userLeave(id) {
     console.log(e)
   }
 }
-
-
 
 // add message to database
 async function addMessage(user, msg) {

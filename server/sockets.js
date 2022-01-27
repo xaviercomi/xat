@@ -18,63 +18,72 @@ module.exports = function(io) {
   io.on('connection', socket => {
 
       socket.on('joinRoom', async({ username, room }) => {
-        const user = await userJoin(socket.id, username, room);
 
-        if (user) {
-          socket.join(user.room);
+        try {
+          const user = await userJoin(socket.id, username, room);
 
-          // Welcome current user
-          socket.emit('message', formatMessage(xatName, 'Welcome to XiPXAT!'));
+            socket.join(user.room);
 
-          // Broadcast when a user connects
-          socket.broadcast
-            .to(user.room)
-            .emit(
-              'message',
-              formatMessage(xatName, `${user.username} has joined the chat`)
-            );
+            // Welcome current user
+            socket.emit('message', formatMessage(xatName, 'Welcome to XiPXAT!'));
 
-            
-          // Send users and room info
-          io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: await getRoomUsers(user.room)
-          });
+            // Broadcast when a user connects
+            socket.broadcast
+              .to(user.room)
+              .emit(
+                'message',
+                formatMessage(xatName, `${user.username} has joined the chat`)
+              );
+    
+            // Send users and room info
+            io.to(user.room).emit('roomUsers', {
+              room: user.room,
+              users: await getRoomUsers(user.room)
+            });
 
-          
+        } catch (error) {
+            console.log(error)
         }
 
       });
 
       // Listen for chatMessage
       socket.on('chatMessage', async (msg) => {
-        console.log(msg)
-        const user = await getCurrentUser(socket.id);
-        addMessage(user, msg);
-        const userToObject = Object.assign({}, user)
-        console.log(typeof user)
-        console.log(userToObject)
-        const userRoom = userToObject[0].room;
-        const userName = userToObject[0].username;
-        io.to(userRoom).emit('message', formatMessage(userName, msg));  
-        console.log(user.room, msg + "llega al servidor");
-        
+        try {
+          const user = await getCurrentUser(socket.id);
+
+          addMessage(user, msg);
+
+          const userToObject = Object.assign({}, user)
+
+          const userRoom = userToObject[0].room;
+          const userName = userToObject[0].username;
+
+          io.to(userRoom).emit('message', formatMessage(userName, msg));  
+        } catch (error) {
+         console.log(error)
+        }  
       }); 
 
       // Runs when client disconnects
-      socket.on('disconnect', () => {
-        const user = userLeave(socket.id);
+      socket.on('disconnect', async () => {
 
-        if (user) {
-          io.to(user.room).emit(
-            'message',
-            formatMessage(xatName, `${user.username} has left the chat`)
-          );
-          // Send users and room info
-          io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getRoomUsers(user.room)
-          });
+        try {
+          let user;
+          user = await userLeave(socket.id);
+          if (user) {
+            io.to(user.room).emit(
+              'message',
+              formatMessage(xatName, `${user.username} has left the chat`)
+            );
+            // Send users and room info
+            io.to(user.room).emit('roomUsers', {
+              room: user.room,
+              users: getRoomUsers(user.room)
+            });
+          }
+        } catch (error) {
+            console.log(error)
         }
 
       });
