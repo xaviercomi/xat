@@ -3,14 +3,16 @@ const User = require('../models/userSchema')
 // Join user to chat
 async function userJoin(id, username, room) {
 
-  try{
-    const userExist = await User.findOne({username: username, room: room });
-    if (!userExist) {
-      const newUser = await User.create({ id: id, username: username, room: room });
-      return newUser;
-    } else {
-      return userExist;
-    }
+  try {
+      const findUser = await User.findOne({id: id});
+      if (findUser !== null) {
+        console.log("en server")      
+        return { message: "user already exists!" };
+      } else {
+        const newUser = await User.create({ id: id, username: username, room: room});
+        console.log(newUser)
+        return newUser;
+      }
   } catch (e) {
       console.log(e)
   }

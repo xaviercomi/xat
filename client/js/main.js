@@ -92,7 +92,7 @@ if (leaveRoom)
     leaveRoom.addEventListener('click', () => {
       const sureLeaveRoom = confirm('Are you sure you want to leave the chatroom?');
       if (sureLeaveRoom) {
-       window.location = 'http://localhost:3001/client/html/index.html';
+       window.location = '../html/index.html';
       } else {
       }
     });
