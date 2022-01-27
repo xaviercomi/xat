@@ -16,7 +16,7 @@ if(username) {
 
   // Message from server
   socket.on('message', (message) => {
-    console.log(message + "del server")
+    console.log(message, + "vuelve al navegador!!!!!!!!!!!!!!!!!!!")
     outputMessage(message);
 
   // Scroll down
@@ -46,7 +46,7 @@ if (chatForm) {
       }
       
     // Emit message to server
-    console.log(msg + "el cliente escribe")
+    console.log(msg + "el cliente escribe desde html chat.html")
       socket.emit('chatMessage', msg);
 
     // Clear input
@@ -57,7 +57,7 @@ if (chatForm) {
 
 // Output message to DOM
 function outputMessage(message) {
-  console.log(message.text + "nome jodas ")
+  console.log(message.text + "----nome jodas ")
   const div = document.createElement('div');
   div.classList.add('message');
   const p = document.createElement('p');
@@ -92,7 +92,7 @@ if (leaveRoom)
     leaveRoom.addEventListener('click', () => {
       const sureLeaveRoom = confirm('Are you sure you want to leave the chatroom?');
       if (sureLeaveRoom) {
-       window.location = '../html/index.html';
+        window.location = '../html/index.html';
       } else {
       }
     });

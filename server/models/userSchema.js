@@ -8,5 +8,6 @@ const userSchema = new mongoose.Schema({
     message: [Object]
 });
 
+
 var User = mongoose.model('User', userSchema);
 module.exports = User;

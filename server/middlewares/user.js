@@ -4,15 +4,8 @@ const User = require('../models/userSchema')
 async function userJoin(id, username, room) {
 
   try {
-      const findUser = await User.findOne({id: id});
-      if (findUser !== null) {
-        console.log("en server")      
-        return { message: "user already exists!" };
-      } else {
-        const newUser = await User.create({ id: id, username: username, room: room});
-        console.log(newUser)
+        const newUser = await User.create({ id: id, username: username, room: room });
         return newUser;
-      }
   } catch (e) {
       console.log(e)
   }
@@ -24,9 +17,11 @@ async function getCurrentUser(id) {
   try{
     const user = await User.find({ id: id })
     if(user){
+      console.log(user + "DENTRO DE LA FUNCION")
       return user;
-    }
+    } else {
     return null
+    };
   } catch(e){
     console.log(e);
   }
@@ -58,8 +53,8 @@ async function userLeave(id) {
 async function addMessage(user, msg) {
 
   try{
-    const userUpdated = await User.findByIdAndUpdate(user, { $push: {message: msg} });
-    //return userUpdated;
+    const userUpdated = await User.findByIdAndUpdate(user, { $set: {message: msg} });
+    return userUpdated;
   } catch(e){
     console.log(e)
   }

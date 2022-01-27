@@ -31,7 +31,7 @@ module.exports = function(io) {
             .to(user.room)
             .emit(
               'message',
-                formatMessage(xatName, `${user.username} has joined the chat`)
+              formatMessage(xatName, `${user.username} has joined the chat`)
             );
 
             
@@ -44,15 +44,20 @@ module.exports = function(io) {
           
         }
 
-    });
+      });
 
       // Listen for chatMessage
       socket.on('chatMessage', async (msg) => {
-        console.log(msg + "en el server")
-        const user = await getCurrentUser(socket.id)
+        console.log(msg)
+        const user = await getCurrentUser(socket.id);
         addMessage(user, msg);
-        console.log(user, msg)
-        io.to(user.room).emit('message', formatMessage(user.username, msg));  
+        const userToObject = Object.assign({}, user)
+        console.log(typeof user)
+        console.log(userToObject)
+        const userRoom = userToObject[0].room;
+        const userName = userToObject[0].username;
+        io.to(userRoom).emit('message', formatMessage(userName, msg));  
+        console.log(user.room, msg + "llega al servidor");
         
       }); 
 
