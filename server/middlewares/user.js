@@ -4,11 +4,13 @@ const User = require('../models/userSchema')
 async function userJoin(id, username, room) {
 
   try{
-    const userExist = await User.findOneAndUpdate({username: username, room : room}, 
-                                                  { id: id, username: username, room: room },
-                                                  { new: true, upsert : true });
-                                                 
-    return userExist;
+    const userExist = await User.findOne({username: username, room: room });
+    if (!userExist) {
+      const newUser = await User.create({ id: id, username: username, room: room });
+      return newUser;
+    } else {
+      return userExist;
+    }
   } catch (e) {
       console.log(e)
   }
@@ -22,6 +24,7 @@ async function getCurrentUser(id) {
     if(user){
       return user;
     }
+    return null
   } catch(e){
     console.log(e);
   }

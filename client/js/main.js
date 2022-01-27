@@ -31,7 +31,7 @@ if(username) {
 }
 
 // Message submit
-//if (chatForm) {
+if (chatForm) {
 
     chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -53,7 +53,7 @@ if(username) {
       e.target.elements.msg.value = '';
       e.target.elements.msg.focus();
     });
-//}
+}
 
 // Output message to DOM
 function outputMessage(message) {
