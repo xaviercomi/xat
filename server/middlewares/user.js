@@ -31,16 +31,17 @@ async function getRoomUsers(room) {
   try {
     const users = await User.find({ room: room })
     return users
+    
   } catch (e) {
-    console.log(e)
+    console.log(error);
   }
 };
 
 // User leaves chat
 async function userLeave(id) {
   try{
-    const user = await User.findOneAndDelete(id)
-    return user
+    const user = await User.findOneAndDelete({id: id});
+    return user;
   } catch(e){
     console.log(e)
   }
