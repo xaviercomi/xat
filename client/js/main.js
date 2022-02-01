@@ -13,8 +13,15 @@ const { username, room } = Qs.parse(location.search, {
 const socket = io.connect('http://localhost:3000');
 
 // Join chat room
-socket.emit('joinRoom', { username, room }, (e)=> {
-  e.preventDefault();
+if (username) {
+  socket.emit('joinRoom', { username, room }, (e)=> {
+    e.preventDefault();
+  });
+};
+// Message user alredy exists
+socket.on('infoMessage', (message) => {
+  window.alert(message + "\nTry something new!");
+  window.location = '../html/index.html';
 });
 
 // Message from server

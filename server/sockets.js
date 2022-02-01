@@ -21,9 +21,12 @@ io.on('connection', socket => {
 
       try {
         const user = await userJoin(socket.id, username, room);
-          
+        console.log(user)
+          if(!user) {
+              socket.emit('infoMessage', 'User already exist :(  ' )
+              process.disconnect();
+          }
           socket.join(user.room);
-
           // Welcome current user
           socket.emit('message', formatMessage(xatName, 'Welcome to XiPXAT!'));
 

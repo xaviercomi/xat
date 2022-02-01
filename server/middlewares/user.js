@@ -9,7 +9,7 @@ async function userJoin(id, username, room) {
           const newUser = await User.create({ id: id, username: username, room: room });
           return newUser;
         } else {
-          return userExist;
+          return null;
         }
   } catch (e) {
       console.log(e)
