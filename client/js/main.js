@@ -11,10 +11,12 @@ const { username, room } = Qs.parse(location.search, {
 });
 
 const socket = io.connect('http://localhost:3000');
+
 // Join chat room
 socket.emit('joinRoom', { username, room }, (e)=> {
   e.preventDefault();
 });
+
 // Message from server
 socket.on('message', (message) => {
   outputMessage(message)

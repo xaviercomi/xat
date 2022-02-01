@@ -4,8 +4,13 @@ const User = require('../models/userSchema')
 async function userJoin(id, username, room) {
 
   try {
-        const newUser = await User.create({ id: id, username: username, room: room });
-        return newUser;
+        const userExist = await User.findOne({ username : username, room: room })
+        if (!userExist) {
+          const newUser = await User.create({ id: id, username: username, room: room });
+          return newUser;
+        } else {
+          return userExist;
+        }
   } catch (e) {
       console.log(e)
   }

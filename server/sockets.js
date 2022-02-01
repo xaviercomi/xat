@@ -21,7 +21,7 @@ io.on('connection', socket => {
 
       try {
         const user = await userJoin(socket.id, username, room);
-
+          
           socket.join(user.room);
 
           // Welcome current user
@@ -34,7 +34,7 @@ io.on('connection', socket => {
               'message',
               formatMessage(xatName, `${user.username} has joined the chat`)
             );
-  
+
           // Send users and room info
           io.to(user.room).emit('roomUsers', {
             room: user.room,
