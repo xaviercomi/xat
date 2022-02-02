@@ -6,7 +6,7 @@ const {
   userLeave,
   getRoomUsers,
   addMessage
-} = require('./middlewares/user');
+} = require('./user');
 
 const io = require('./server')
 

@@ -1,4 +1,4 @@
-const User = require('../models/userSchema')
+const User = require('./models/userSchema')
 
 // Join user to chat
 async function userJoin(id, username, room) {

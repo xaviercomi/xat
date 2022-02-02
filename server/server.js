@@ -11,6 +11,9 @@ const io = require('socket.io')(http,
         credentials: true
     } 
 });
+app.get('/', (req, res) => {
+
+});
 
 require('./database');
 require('./sockets')(io);
