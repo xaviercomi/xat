@@ -21,7 +21,7 @@ io.on('connection', socket => {
 
       try {
         const user = await userJoin(socket.id, username, room);
-        console.log(user)
+        
           if(!user) {
               socket.emit('infoMessage', 'User already exist :(  ' )
               process.disconnect();

@@ -11,10 +11,10 @@ const io = require('socket.io')(http,
         credentials: true
     } 
 });
-app.get('/', (req, res) => {
+const routes = require('./routes/route')
 
-});
-
+app.use('/', routes);
+    
 require('./database');
 require('./sockets')(io);
 
