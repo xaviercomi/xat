@@ -11,8 +11,10 @@ const io = require('socket.io')(http,
         credentials: true
     } 
 });
+
 const routes = require('./routes/route')
 
+app.use(express.json())
 app.use('/', routes);
     
 require('./database');

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const bcrypt = require('bcript');
+const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
