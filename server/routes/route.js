@@ -4,7 +4,7 @@ const Client = require('../models/clientSchema')
 
 router.post('/register', (req, res) => {
 
-    const {name, password} = req.body;
+    const { name, password } = req.body;
 
     const user = new Client({ name, password });
 
@@ -12,7 +12,7 @@ router.post('/register', (req, res) => {
         if (err) {
             res.status(500).send({ message: "Error user NOT registered" });
         } else {
-            res.status(200).send({ message: "User registered" });
+            res.status(201).send({ message: "User registered" });
         }
     });
 
@@ -24,17 +24,17 @@ router.post('/login', (req, res) => {
 
     Client.findOne({ name }, (err, user) => {
         if (err) {
-            res.status(500).send('Error on register');
+            res.status(500).send('Error on login');
         } else if (!user) {
-            res.status(500).send('User NOT find')
+            res.status(404).send('User NOT find')
         } else {
             user.isCorrectPassword(password, (err, result) => {
                 if (err) {
-                    res.status(500).send('Authenticate error')
+                    res.status(400).send('Authenticate error')
                 } else if (result) {
                     res.status(200).send('Access granted')
                 } else {
-                    res.status(500).send('name or password incorrect')
+                    res.status(401).send('name or password incorrect')
                 }
             });
         }

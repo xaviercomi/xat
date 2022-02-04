@@ -1,27 +1,25 @@
 
 document.getElementById('register').addEventListener('click', function() {
 
-    const clientName = document.getElementById('clientName');
-    const password = document.getElementById('password')
+    const clientName = document.getElementById('clientName').value;
+    const password = document.getElementById('password').value;
 
-    var info = {
+    const info = {
         name: clientName,
         password: password
-    }
-
-    console.log("s'ha enviat la info " + info);
+    };
 
     fetch('http://localhost:3000/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: info
-    }).then(response => console.log(response.json()))
-      .then(status => {
-        if (status.status === 200) {
-            window.alert(response)
+        method: "POST",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(info)
+    }).then(response => {
+        if (response.ok) {
+            window.alert('User registered!')
             window.location = '../html/login.html';
+        } else {
+            window.alert('User already exists, log in')
+            window.location = '../html/login.html'
         }
     })
     

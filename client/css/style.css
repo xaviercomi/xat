@@ -33,18 +33,19 @@ input[type=text], input[type=password] {
 	width: 100%;
 }
 
-input[type="submit"] {
-	border: 0;
+button {
+	border: 1;
 	outline: 0;
 	background-color:rgba(0, 0, 0, 0.1);
-	font-size: 18px;
+	padding: 10px;
+	font-size: 15px;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 3px;
+	border-radius: 5px;
 }
 
 .section {
 	padding: 15px 0;
+	text-align: center;
 }
 
 .section .title {

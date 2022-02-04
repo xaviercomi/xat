@@ -8,20 +8,21 @@
     <link rel="stylesheet" href='../css/style.css'>
 </head>
 <body>
-    <form action="/authenticate" method="POST">
+    <form>
         <h2>Login XiPXAT</h2>
         <div class="section">
             <div class="title">name</div>
-            <div class="field"><input type="text" id="clientname" name="clientname"></div>
+            <div class="field"><input type="text" id="clientName" required></div>
         </div>
         <div class="section">
             <div class="title">password</div>
-            <div class="field"><input type="password" id="password" name="password"></div>
+            <div class="field"><input type="password" id="password" required></div>
         </div>
         <div class="section">
-            <div class="button"><input type="submit" value="Login" id='login'></div>
+            <button type="button" id='login'>Login</button>
             <div class="button"><a href="./register.html">register</a></div>
-        </div>
-        <script src="../js/login.js"></script>
+        </div>    
+    </form>
+    <script src="../js/login.js"></script>
 </body>
 </html>
