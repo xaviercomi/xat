@@ -1,4 +1,3 @@
-
 document.getElementById('login').addEventListener('click', function() {
 
     const clientName = document.getElementById('clientName').value;
@@ -15,19 +14,13 @@ document.getElementById('login').addEventListener('click', function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(loginInfo)
-    }).then (response => {
-        if (response.ok) {
+    }).then (response => response.json())
+      .then (data => {
+            localStorage.setItem("token", JSON.stringify(data.token));
             window.location = '../html/index.html'
-        } else if (response.status === 500) {
-            window.alert('Error on login')
-        } else if (response.status === 401) {
-            window.alert('name or password incorrect')
-        } else if (response.status === 404) {
-            window.alert('user NOT find')
-        } else if (response.status === 400) {
-            window.alert('Authenticate error')
-        }
-    })
+    }).catch (data => { 
+        window.alert('credential NOT allowed')
+    });
 
 });
 

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Client = require('../models/clientSchema')
+const jwt = require('jsonwebtoken')
+const auth = require('../middlewares/authToken')
 
 router.post('/register', (req, res) => {
 
@@ -26,14 +28,18 @@ router.post('/login', (req, res) => {
         if (err) {
             res.status(500).send('Error on login');
         } else if (!user) {
-            res.status(404).send('User NOT find')
+            res.status(404).send('User NOT find');
         } else {
             user.isCorrectPassword(password, (err, result) => {
                 if (err) {
-                    res.status(400).send('Authenticate error')
+                    res.status(400).send('Authenticate error');
                 } else if (result) {
-                    res.status(200).send('Access granted')
-                } else {
+                    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
+                    res.status(200).header('token', accessToken).json({
+                        token: accessToken
+                    })
+
+                } else {    
                     res.status(401).send('name or password incorrect')
                 }
             });
@@ -41,6 +47,16 @@ router.post('/login', (req, res) => {
 
     });
 
+});
+
+router.get('/index', auth, (req, res) => {
+
+        if (res.ok) {
+            res.status(200).send({ message: 'Access granted!'});
+        }
+    
+        res.status(500).send({ message: 'token authenticate fail' })
+    
 });
 
 module.exports = router;

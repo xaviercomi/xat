@@ -5,6 +5,22 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const leaveRoom = document.getElementById('leave-btn');
 
+const token = localStorage.getItem('token');
+
+fetch('http://localhost:3000/index', {
+    method: 'GET',
+    headers: {
+      'Content-Type' : 'application/json',
+      'token' : JSON.parse(token)
+    }
+}).then(response => {
+      console.log(response)
+      if (!response.ok){
+        window.alert('access NOT granted. registre and login');
+        window.location = '../html/login.html'
+      }
+});
+
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
@@ -64,7 +80,8 @@ chatForm.addEventListener('submit', (e) => {
 leaveRoom.addEventListener('click', () => {
   const sureLeaveRoom = confirm('Are you sure you want to leave the chatroom?');
   if (sureLeaveRoom) {
-    window.location = '../html/index.html';
+    localStorage.removeItem("token");
+    window.location = '../html/login.html';
   }
 });
 
@@ -99,6 +116,3 @@ function outputUsers(users) {
   userList.appendChild(li);
   });  
 };
-
-
-

@@ -119,6 +119,7 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
 }
 
 .chat-main {
@@ -160,6 +161,7 @@ a {
 	background-color: var(--light-color);
 	border-radius: 5px;
 	overflow-wrap: break-word;
+	text-align: left;
 }
 
 .chat-messages .message .meta {
