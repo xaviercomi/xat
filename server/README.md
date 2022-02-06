@@ -1,13 +1,29 @@
-# ChatCord App
-Realtime chat app with websockets using Node.js, Express and Socket.io with Vanilla JS on the frontend with a custom UI
-[![Run on Repl.it](https://repl.it/badge/github/bradtraversy/chatcord)](https://repl.it/github/bradtraversy/chatcord)
+# xipxat app
+Realtime chat app with websockets using Node.js, Express and Socket.io and mongoDB for persistence.. also jasonwebtoken for authenticate.
+Vanilla JS on the frontend with a HTML&CSS custom UI 
+
 ## Usage
 ```
-npm install
-npm run dev
+You will need NODEjs & mongoDB
 
-Go to localhost:3000
+on a terminal 
+../server> npm install (to install)
+
+open a terminal and star mongoDb service
+in case you don't have it running as a starting service
+
+../server>mongod
+
+open a second terminal, on folder:
+
+ ../server> node server (to run)
+
+ now you will see a missage from the server and the database. 
+
+Go to http://localhost:3001/client/html/register.html on you browser or
+doble click on file register.html on you file system.
+
+client/html/register.html
 ```
 
-## Notes
-The *_html_css* folder is just a starter template to follow along with the tutorial at https://www.youtube.com/watch?v=jD7FnbI76Hg&t=1339s. It is not part of the app
+

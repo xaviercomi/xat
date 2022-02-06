@@ -35,10 +35,7 @@ router.post('/login', (req, res) => {
                     res.status(400).send('Authenticate error');
                 } else if (result) {
                     const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET);
-                    res.status(200).header('token', accessToken).json({
-                        token: accessToken
-                    })
-
+                    res.status(200).header('token', accessToken).json({token: accessToken});
                 } else {    
                     res.status(401).send('name or password incorrect')
                 }
@@ -52,11 +49,10 @@ router.post('/login', (req, res) => {
 router.get('/index', auth, (req, res) => {
 
         if (res.ok) {
-            res.status(200).send({ message: 'Access granted!'});
+            return res.status(200).send({ message: 'Access granted!'});
+        } else {
+            return res.status(500).send({ message: 'token authenticate fail' })
         }
-    
-        res.status(500).send({ message: 'token authenticate fail' })
-    
 });
 
 module.exports = router;
